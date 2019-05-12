@@ -18,11 +18,11 @@ export class ManageEvent extends React.Component {
             <div>
                 <FormGroup row>
 
-                    <div style={{ backgroundColor: 'white' }}>
+                    <div>
                         <br /><TextField defaultValue="Chilli con Carne" id="title" type="text" label="title" />
                         <br />
                         <TextField defaultValue="We cook the classic chili after an old family recipe. There'll be some wine or softdrinks if you prefer"
-                            id="description" type="text" label="description" multiline="true" rows="4" />
+                            id="description" type="text" label="description" multiline={true} rows="4" />
                         <br />
                         <TextField defaultValue="5€" id="price" type="text" label="price" />
                         <br />
@@ -65,10 +65,10 @@ class ApplicationSlide extends React.Component {
                     defaultValue={this.props.user_name}
                     margin="normal"
                 />
-                <Button color="#ff5c5c">
+                <Button>
                     Decline
                 </Button>
-                <Button color='green' variant="contained">
+                <Button variant="contained">
                     Accept
                 </Button>
 
