@@ -13,6 +13,11 @@ import valentin from './valentin.png';
 import hannah from './hannah.png';
 
 export class ManageEvent extends React.Component {
+
+    state = {
+        numberOfSlotsLeft: 5,
+    };
+
     render() {
         return (
             <div>
@@ -32,11 +37,9 @@ export class ManageEvent extends React.Component {
                     <img src={spaghetti} width={350} />
 
                 </FormGroup>
-                {/* <h1>henlooooo</h1> */}
-
-                <ApplicationSlide user_name="Jonathan Weber" image_source={jonathan} />
-                <ApplicationSlide user_name="Valentin Schwartz" image_source={valentin} />
-                <ApplicationSlide user_name="Hannah Montannah" image_source={hannah} />
+                {this.state.numberOfSlotsLeft > 4 ? <ApplicationSlide user_name="Jonathan Weber" image_source={jonathan} /> : null}
+                {this.state.numberOfSlotsLeft > 3 ? <ApplicationSlide user_name="Valentin Schwartz" image_source={valentin} /> : null}
+                {this.state.numberOfSlotsLeft > 2 ? <ApplicationSlide user_name="Hannah Montannah" image_source={hannah} /> : null}
             </div>
         );
     }
@@ -44,6 +47,10 @@ export class ManageEvent extends React.Component {
 
 class ApplicationSlide extends React.Component {
 
+    state = {
+        application_active: true,
+        is_participating: false,
+    }
 
     // state = {
     //     user_name: 'Jonathan Weber',
@@ -52,27 +59,42 @@ class ApplicationSlide extends React.Component {
 
 
     render() {
+        const declineUser = () => {
+            this.setState({ application_active: false })
+        }
+        const acceptUser = () => {
+            this.setState({ is_participating: true })
+        }
         const user_name = "Jonathan Weber";
         const image_source = null;
         return (
-            <FormGroup row>
-                <img src={this.props.image_source} width={50} height={50} />
-                <TextField
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    id="standard-read-only_input"
-                    defaultValue={this.props.user_name}
-                    margin="normal"
-                />
-                <Button>
-                    Decline
-                </Button>
-                <Button variant="contained">
-                    Accept
-                </Button>
+            <div>
+                {this.state.application_active ? <FormGroup row>
+                    <img src={this.props.image_source} width={50} height={50} />
+                    <TextField
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        id="standard-read-only_input"
+                        defaultValue={this.props.user_name}
+                        margin="normal"
+                    />
+                    {!this.state.is_participating ?
+                        <div>
+                            <Button variant="contained" onClick={declineUser} >
+                                Decline
+                        </Button>
+                            <Button variant="contained" onClick={acceptUser}>
+                                Accept
+                        </Button>
+                        </div> :
+                        <div>
+                            is participating
+                        </div>
+                    }
 
-            </FormGroup>
+                </FormGroup> : null}
+            </div>
         )
     }
 }
